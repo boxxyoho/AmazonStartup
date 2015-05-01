@@ -3,6 +3,15 @@ Grabs the network interfaces and resets the IP address to the IP address that Am
 to the DNS change. This essentially changes DNS settings and associates the necessary IP addresses to the IIS websites.
 #>
 
+<#Function that is used to reverse the IP address#>
+
+Function reverseString($ipaddress){
+    $text = $ipaddress -split ""
+    [Array]::Reverse($text)
+    -join $text
+#   return $text
+}
+
 Import-Module WebAdministration
 
 #sets the necessary variables
@@ -94,12 +103,3 @@ Get-ChildItem Cert:\LocalMachine\My | select -First 1 | New-Item IIS:\SslBinding
 #Register the DNS entry and flush the DNS
 ipconfig /registerdns
 ipconfig /flushdns
-
-<#Function that is used to reverse the IP address#>
-
-Function reverseString($ipaddress){
-    $text = $ipaddress -split ""
-    [Array]::Reverse($text)
-    -join $text
-#   return $text
-}
