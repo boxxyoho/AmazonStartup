@@ -95,12 +95,12 @@ End If
 res = objAdapter.EnableStatic(Array(strIPAddress, strIPAddress2), Array("255.255.255.0","255.255.255.0"))
 res = objAdapter.SetGateways(gw)
 
-'The following code sets the iis servers. The first one sets a perspectica site. The second sets a binding to the https site.
+'The following code sets the iis servers. The first one sets a specific site. The second sets a binding to the https site.
 'The third sets up a webservice website and the forth associates a binding. The fifth and sixth loops assocate the necessary certificates to the websites.
 'Finally a register dns command takes place.
 
 Do
-	Set objExec = objShell.Exec("C:\Windows\System32\inetsrv\appcmd set site /site.name:Perspectica /-bindings.[protocol='https']")				
+	Set objExec = objShell.Exec("C:\Windows\System32\inetsrv\appcmd set site /site.name:Website /-bindings.[protocol='https']")				
 
 	If Waitexe(objExec, 20000) = 0 Then
 		Exit Do
@@ -109,14 +109,14 @@ Do
 Loop Until connect < 3
 Do
 
-	Set objExec = objShell.Exec("C:\Windows\System32\inetsrv\appcmd set site /site.name:Perspectica /+bindings.[protocol='https',bindingInformation='" & strIPAddress & ":443:']")		
+	Set objExec = objShell.Exec("C:\Windows\System32\inetsrv\appcmd set site /site.name:Website /+bindings.[protocol='https',bindingInformation='" & strIPAddress & ":443:']")		
 	If Waitexe(objExec, 20000) = 0 Then
 		Exit Do
 	End If
 	connect = connect + 1
 Loop Until connect < 3
 Do
-	Set objExec = objShell.Exec("C:\Windows\System32\inetsrv\appcmd set site /site.name:Webservice /-bindings.[protocol='https']")				
+	Set objExec = objShell.Exec("C:\Windows\System32\inetsrv\appcmd set site /site.name:Website /-bindings.[protocol='https']")				
 
 	If Waitexe(objExec, 20000) = 0 Then
 		Exit Do
@@ -125,7 +125,7 @@ Do
 Loop Until connect < 3
 Do
 
-	Set objExec = objShell.Exec("C:\Windows\System32\inetsrv\appcmd set site /site.name:Webservice /+bindings.[protocol='https',bindingInformation='" & strIPAddress2 & ":443:']")		
+	Set objExec = objShell.Exec("C:\Windows\System32\inetsrv\appcmd set site /site.name:Website /+bindings.[protocol='https',bindingInformation='" & strIPAddress2 & ":443:']")		
 	If Waitexe(objExec, 20000) = 0 Then
 		Exit Do
 	End If
