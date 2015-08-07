@@ -88,13 +88,13 @@ The third sets up a webservice website and the forth associates a binding. The f
 Finally a register dns command takes place.
 #>
 
-Remove-Website -name Perspectica
+Remove-Website -name ListWebsiteNameHere
 
-New-Website -Name Perspectica -ApplicationPool Perspectica -IPAddress $IP -Port 443 -Ssl -Force
+New-Website -Name ListWebsiteNameHere -ApplicationPool ListAppPoolNameHere -IPAddress $IP -Port 443 -Ssl -Force
 
-Remove-Website -name WebService
+Remove-Website -name ListWebsiteNameHere
 
-New-Website -Name Webservice -ApplicationPool WebService -IPAddress $IP2 -Port 443 -Ssl -Force
+New-Website -Name ListWebsiteNameHere -ApplicationPool ListAppPoolNameHere -IPAddress $IP2 -Port 443 -Ssl -Force
 
 Get-ChildItem Cert:\LocalMachine\My | select -First 1 | New-Item IIS:\SslBindings\"$IP"!443
 
